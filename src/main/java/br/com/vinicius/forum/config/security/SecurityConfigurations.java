@@ -20,8 +20,11 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 	// Configuracoes de Autorizacao
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers(HttpMethod.GET, "/topicos").permitAll()
-				.antMatchers(HttpMethod.GET, "/topicos/*").permitAll();
+		http.authorizeRequests().
+			antMatchers(HttpMethod.GET, "/topicos").permitAll()
+			.antMatchers(HttpMethod.GET, "/topicos/*").permitAll()
+			.anyRequest().authenticated()
+			.and().formLogin();
 	}
 
 	// Configuracoes de recursos estaticos(js, css, imagens, etc.)
