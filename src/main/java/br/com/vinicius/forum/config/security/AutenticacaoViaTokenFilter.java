@@ -14,13 +14,14 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import br.com.vinicius.forum.model.Usuario;
 import br.com.vinicius.forum.repository.UsuarioRepository;
 
-public class AutenticacaoViatTokenFIlter extends OncePerRequestFilter {
+public class AutenticacaoViaTokenFilter extends OncePerRequestFilter {
 
 	private TokenService tokenService;
 	private UsuarioRepository repository;
 
-	public AutenticacaoViatTokenFIlter(TokenService tokenService, UsuarioRepository repository) {
+	public AutenticacaoViaTokenFilter(TokenService tokenService, UsuarioRepository repository) {
 		this.tokenService = tokenService;
+		this.repository = repository;
 	}
 
 	@Override
@@ -46,7 +47,7 @@ public class AutenticacaoViatTokenFIlter extends OncePerRequestFilter {
 
 	private String recuperarToken(HttpServletRequest request) {
 		String token = request.getHeader("Authorization");
-		if (token == null || token.isEmpty() || !token.startsWith("Bearer")) {
+		if (token == null || token.isEmpty() || !token.startsWith("Bearer ")) {
 			return null;
 		}
 
